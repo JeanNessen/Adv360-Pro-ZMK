@@ -1,0 +1,534 @@
+// === ENGRAMMER PORT ===
+// Adapted from sunaku's "Glorious Engrammer" keymap v52
+// https://github.com/sunaku/glove80-keymaps
+//
+// Ported to Kinesis Advantage 360 Pro (refil/zmk adv360-z3.5-2)
+// === ENGRAMMER PORT ===
+
+//////////////////////////////////////////////////////////////////////////////
+//
+// Configuration
+//
+//////////////////////////////////////////////////////////////////////////////
+
+// Operating system: 'W' for Windows (WinCompose), 'L' for Linux
+#ifndef OPERATING_SYSTEM
+#define OPERATING_SYSTEM 'W'
+#endif
+
+// OS-dependent shortcuts
+#if OPERATING_SYSTEM == 'M'
+  #define _C      LG
+  #define _A_TAB  LGUI
+  #define _G_TAB  LALT
+  #define _REDO   LG(LS(Z))
+  #define _POWER  K_POWER
+  #define _WORD   LA
+  #define _HOME   LG(LEFT)
+  #define _END    LG(RIGHT)
+  #define _LOCK   _C(LC(Q))
+#else
+  #define _C      LC
+  #define _A_TAB  LALT
+  #define _G_TAB  LGUI
+  #define _REDO   LC(Y)
+  #define _POWER  C_POWER
+  #define _WORD   LC
+  #define _HOME   HOME
+  #define _END    END
+#endif
+#if OPERATING_SYSTEM == 'W'
+  #define _LOCK   LG(L)
+#elif OPERATING_SYSTEM == 'L'
+  #define _LOCK   K_LOCK
+#endif
+#define _UNDO       _C(Z)
+#define _CUT        _C(X)
+#define _COPY       _C(C)
+#define _PASTE      _C(V)
+#define _FIND       _C(F)
+#define _FIND_NEXT  _C(G)
+#define _FIND_PREV  _C(LS(G))
+
+//////////////////////////////////////////////////////////////////////////////
+//
+// Layer indices
+//
+//////////////////////////////////////////////////////////////////////////////
+
+#define LAYER_Base     0
+#define LAYER_Cursor   1
+#define LAYER_Number   2
+#define LAYER_Function 3
+#define LAYER_Symbol   4
+#define LAYER_Mouse    5
+#define LAYER_System   6
+#define LAYER_Lower    7
+#define LAYER_German   8
+#define LAYER_Typing   9
+// Layer 10 = original base (commented out fallback)
+// Layers 11-13 = Mod + reserved (from original keymap)
+
+//////////////////////////////////////////////////////////////////////////////
+//
+// Timing parameters (sunaku defaults, DIFFICULTY_LEVEL 0 / 150ms resolution)
+//
+//////////////////////////////////////////////////////////////////////////////
+
+#ifndef TAPPING_RESOLUTION
+#define TAPPING_RESOLUTION 150
+#endif
+
+// Per-finger hold-tap timing (staggered by finger strength)
+#ifndef INDEX_HOLDING_TIME
+#define INDEX_HOLDING_TIME (TAPPING_RESOLUTION + 30)   // 180ms
+#endif
+#ifndef MIDDY_HOLDING_TIME
+#define MIDDY_HOLDING_TIME (TAPPING_RESOLUTION + 60)   // 210ms
+#endif
+#ifndef RINGY_HOLDING_TIME
+#define RINGY_HOLDING_TIME (TAPPING_RESOLUTION + 90)   // 240ms
+#endif
+#ifndef PINKY_HOLDING_TIME
+#define PINKY_HOLDING_TIME (TAPPING_RESOLUTION + 120)  // 270ms
+#endif
+
+// Streak decay = require-prior-idle-ms (anti-misfire for fast typing)
+#ifndef HOMEY_STREAK_DECAY
+#define HOMEY_STREAK_DECAY TAPPING_RESOLUTION            // 150ms
+#endif
+
+// Repeat decay = quick-tap-ms (for key repeat on double-tap)
+#ifndef HOMEY_REPEAT_DECAY
+#define HOMEY_REPEAT_DECAY (TAPPING_RESOLUTION + 150)    // 300ms
+#endif
+
+// Thumb hold-tap timing
+#ifndef THUMB_HOLDING_TIME
+#define THUMB_HOLDING_TIME (TAPPING_RESOLUTION + 50)     // 200ms
+#endif
+#ifndef THUMB_REPEAT_DECAY
+#define THUMB_REPEAT_DECAY (TAPPING_RESOLUTION + 150)    // 300ms
+#endif
+#ifndef SPACE_HOLDING_TIME
+#define SPACE_HOLDING_TIME THUMB_HOLDING_TIME
+#endif
+#ifndef SPACE_REPEAT_DECAY
+#define SPACE_REPEAT_DECAY TAPPING_RESOLUTION            // 150ms
+#endif
+
+// Sticky key timing
+#ifndef STICKY_1SHOT_DECAY
+#define STICKY_1SHOT_DECAY 500
+#endif
+#ifndef STICKY_HOLDING_TIME
+#define STICKY_HOLDING_TIME (TAPPING_RESOLUTION + 50)    // 200ms
+#endif
+
+//////////////////////////////////////////////////////////////////////////////
+//
+// Home row mod assignments (GACS order for QWERTY)
+//
+// Left hand:  A=GUI, S=Alt, D=Ctrl, F=Shift
+// Right hand: J=Shift, K=Ctrl, L=Alt, ;=GUI
+//
+//////////////////////////////////////////////////////////////////////////////
+
+#define LEFT_PINKY_MOD  LGUI
+#define LEFT_RINGY_MOD  LALT
+#define LEFT_MIDDY_MOD  LCTRL
+#define LEFT_INDEX_MOD  LSFT
+
+#define RIGHT_INDEX_MOD RSFT
+#define RIGHT_MIDDY_MOD RCTRL
+#define RIGHT_RINGY_MOD RALT
+#define RIGHT_PINKY_MOD RGUI
+
+//////////////////////////////////////////////////////////////////////////////
+//
+// Adv360 Pro key positions for positional hold-tap
+//
+// Binding array order (76 keys, 0-indexed), derived from matrix_transform:
+//
+// Row 4 (top):     0  1  2  3  4  5  6              7  8  9 10 11 12 13
+// Row 3:          14 15 16 17 18 19 20             21 22 23 24 25 26 27
+// Row 2 (home):   28 29 30 31 32 33 34  35 36  37 38  39 40 41 42 43 44 45
+// Row 1:          46 47 48 49 50 51          52  53      54 55 56 57 58 59
+// Row 0 (bottom): 60 61 62 63 64      65 66 67  68 69 70      71 72 73 74 75
+//
+// Thumb/center keys: 35,36 (L upper), 37,38 (R upper),
+//                    52 (L mid), 53 (R mid),
+//                    65,66 (L lower 2u), 67 (L corner),
+//                    68 (R corner), 69,70 (R lower 2u)
+//
+
+#define LEFT_HAND_KEYS  \
+     0  1  2  3  4  5  6 \
+    14 15 16 17 18 19 20 \
+    28 29 30 31 32 33 34 \
+    46 47 48 49 50 51    \
+    60 61 62 63 64
+
+#define RIGHT_HAND_KEYS \
+                           7  8  9 10 11 12 13 \
+                          21 22 23 24 25 26 27 \
+                       39 40 41 42 43 44 45 \
+                          54 55 56 57 58 59 \
+                             71 72 73 74 75
+
+// Thumb keys (35-38, 52-53, 65-70) are intentionally omitted from both
+// sides so they don't interfere with positional hold-tap triggering.
+
+//////////////////////////////////////////////////////////////////////////////
+//
+// Home row mod behaviors (8 per-finger hold-taps)
+//
+//////////////////////////////////////////////////////////////////////////////
+
+/ {
+behaviors {
+
+  // === ENGRAMMER PORT: Home Row Mods ===
+
+  left_pinky: homey_left_pinky {
+    compatible = "zmk,behavior-hold-tap";
+    flavor = "tap-preferred";
+    hold-trigger-key-positions = <RIGHT_HAND_KEYS>;
+    hold-trigger-on-release;
+    tapping-term-ms = <PINKY_HOLDING_TIME>;
+    quick-tap-ms = <HOMEY_REPEAT_DECAY>;
+    require-prior-idle-ms = <HOMEY_STREAK_DECAY>;
+    #binding-cells = <2>;
+    bindings = <&kp>, <&kp>;
+  };
+
+  right_pinky: homey_right_pinky {
+    compatible = "zmk,behavior-hold-tap";
+    flavor = "tap-preferred";
+    hold-trigger-key-positions = <LEFT_HAND_KEYS>;
+    hold-trigger-on-release;
+    tapping-term-ms = <PINKY_HOLDING_TIME>;
+    quick-tap-ms = <HOMEY_REPEAT_DECAY>;
+    require-prior-idle-ms = <HOMEY_STREAK_DECAY>;
+    #binding-cells = <2>;
+    bindings = <&kp>, <&kp>;
+  };
+
+  left_ringy: homey_left_ringy {
+    compatible = "zmk,behavior-hold-tap";
+    flavor = "tap-preferred";
+    hold-trigger-key-positions = <RIGHT_HAND_KEYS>;
+    hold-trigger-on-release;
+    tapping-term-ms = <RINGY_HOLDING_TIME>;
+    quick-tap-ms = <HOMEY_REPEAT_DECAY>;
+    require-prior-idle-ms = <HOMEY_STREAK_DECAY>;
+    #binding-cells = <2>;
+    bindings = <&kp>, <&kp>;
+  };
+
+  right_ringy: homey_right_ringy {
+    compatible = "zmk,behavior-hold-tap";
+    flavor = "tap-preferred";
+    hold-trigger-key-positions = <LEFT_HAND_KEYS>;
+    hold-trigger-on-release;
+    tapping-term-ms = <RINGY_HOLDING_TIME>;
+    quick-tap-ms = <HOMEY_REPEAT_DECAY>;
+    require-prior-idle-ms = <HOMEY_STREAK_DECAY>;
+    #binding-cells = <2>;
+    bindings = <&kp>, <&kp>;
+  };
+
+  left_middy: homey_left_middy {
+    compatible = "zmk,behavior-hold-tap";
+    flavor = "tap-preferred";
+    hold-trigger-key-positions = <RIGHT_HAND_KEYS>;
+    hold-trigger-on-release;
+    tapping-term-ms = <MIDDY_HOLDING_TIME>;
+    quick-tap-ms = <HOMEY_REPEAT_DECAY>;
+    require-prior-idle-ms = <HOMEY_STREAK_DECAY>;
+    #binding-cells = <2>;
+    bindings = <&kp>, <&kp>;
+  };
+
+  right_middy: homey_right_middy {
+    compatible = "zmk,behavior-hold-tap";
+    flavor = "tap-preferred";
+    hold-trigger-key-positions = <LEFT_HAND_KEYS>;
+    hold-trigger-on-release;
+    tapping-term-ms = <MIDDY_HOLDING_TIME>;
+    quick-tap-ms = <HOMEY_REPEAT_DECAY>;
+    require-prior-idle-ms = <HOMEY_STREAK_DECAY>;
+    #binding-cells = <2>;
+    bindings = <&kp>, <&kp>;
+  };
+
+  left_index: homey_left_index {
+    compatible = "zmk,behavior-hold-tap";
+    flavor = "tap-preferred";
+    hold-trigger-key-positions = <RIGHT_HAND_KEYS>;
+    hold-trigger-on-release;
+    tapping-term-ms = <INDEX_HOLDING_TIME>;
+    quick-tap-ms = <HOMEY_REPEAT_DECAY>;
+    require-prior-idle-ms = <HOMEY_STREAK_DECAY>;
+    #binding-cells = <2>;
+    bindings = <&kp>, <&kp>;
+  };
+
+  right_index: homey_right_index {
+    compatible = "zmk,behavior-hold-tap";
+    flavor = "tap-preferred";
+    hold-trigger-key-positions = <LEFT_HAND_KEYS>;
+    hold-trigger-on-release;
+    tapping-term-ms = <INDEX_HOLDING_TIME>;
+    quick-tap-ms = <HOMEY_REPEAT_DECAY>;
+    require-prior-idle-ms = <HOMEY_STREAK_DECAY>;
+    #binding-cells = <2>;
+    bindings = <&kp>, <&kp>;
+  };
+
+  // === ENGRAMMER PORT: Thumb Hold-Taps ===
+
+  thumb: thumb_layer_access {
+    compatible = "zmk,behavior-hold-tap";
+    flavor = "balanced";
+    tapping-term-ms = <THUMB_HOLDING_TIME>;
+    quick-tap-ms = <THUMB_REPEAT_DECAY>;
+    #binding-cells = <2>;
+    bindings = <&mo>, <&kp>;
+  };
+
+  space: thumb_layer_access_spacebar {
+    compatible = "zmk,behavior-hold-tap";
+    flavor = "balanced";
+    tapping-term-ms = <SPACE_HOLDING_TIME>;
+    quick-tap-ms = <SPACE_REPEAT_DECAY>;
+    #binding-cells = <2>;
+    bindings = <&mo>, <&kp>;
+  };
+
+  // === ENGRAMMER PORT: Mod-Morphs ===
+
+  // Shift + ( = <
+  parang_left: left_parenthesis_and_less_than {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp LPAR>, <&kp LT>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
+  // Shift + ) = >
+  parang_right: right_parenthesis_and_greater_than {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp RPAR>, <&kp GT>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
+  // === ENGRAMMER PORT: Sticky Key (true one-shot) ===
+
+  sticky_key_modtap: sticky_key_modtap {
+    compatible = "zmk,behavior-hold-tap";
+    flavor = "tap-preferred";
+    tapping-term-ms = <STICKY_HOLDING_TIME>;
+    #binding-cells = <2>;
+    bindings = <&kp>, <&sticky_key_oneshot>;
+  };
+
+  sticky_key_quickrel: sticky_key_quick_release {
+    compatible = "zmk,behavior-sticky-key";
+    #binding-cells = <1>;
+    bindings = <&kp>;
+    release-after-ms = <STICKY_1SHOT_DECAY>;
+    quick-release;
+    ignore-modifiers;
+  };
+
+  // === ENGRAMMER PORT: CapsWord override ===
+
+  caps_word {
+    continue-list = <
+      UNDERSCORE MINUS
+      BACKSPACE DELETE
+      N1 N2 N3 N4 N5 N6 N7 N8 N9 N0
+    >;
+  };
+
+  // === ENGRAMMER PORT: German Umlaut Mod-Morphs ===
+  // Each key produces lowercase on tap, uppercase when Shift is held.
+  // The underlying macros use WinCompose (Windows) or Ctrl+Shift+U (Linux).
+
+  german_ae: german_a_umlaut {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&german_ae_lower>, <&german_ae_upper>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
+  german_oe: german_o_umlaut {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&german_oe_lower>, <&german_oe_upper>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
+  german_ue: german_u_umlaut {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&german_ue_lower>, <&german_ue_upper>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
+  german_ss: german_eszett {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&german_ss_lower>, <&german_ss_upper>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
+}; // end behaviors
+
+macros {
+
+  // === ENGRAMMER PORT: Sticky key oneshot macro ===
+
+  sticky_key_oneshot: sticky_key_oneshot_macro {
+    compatible = "zmk,behavior-macro-one-param";
+    wait-ms = <0>;
+    tap-ms = <0>;
+    #binding-cells = <1>;
+    bindings
+      = <&macro_param_1to1>
+      , <&macro_tap &sticky_key_quickrel MACRO_PLACEHOLDER>
+      ;
+  };
+
+  // === ENGRAMMER PORT: Unicode infrastructure ===
+  //
+  // Windows: uses WinCompose (RAlt U <hex> Enter)
+  //   Install from: https://github.com/samhocevar/wincompose
+  // Linux: uses Ctrl+Shift+U <hex> Enter
+  //
+  // To switch OS, change OPERATING_SYSTEM at the top of this file.
+
+  // ä = U+00E4
+  german_ae_lower: german_ae_lower_macro {
+    compatible = "zmk,behavior-macro";
+    wait-ms = <1>;
+    tap-ms = <1>;
+    #binding-cells = <0>;
+    bindings
+    #if OPERATING_SYSTEM == 'W'
+      = <&macro_tap &kp RALT &kp U &kp N0 &kp N0 &kp E &kp N4 &kp ENTER>
+    #elif OPERATING_SYSTEM == 'L'
+      = <&macro_tap &kp LC(LS(U)) &kp E &kp N4 &kp ENTER>
+    #endif
+      ;
+  };
+
+  // Ä = U+00C4
+  german_ae_upper: german_ae_upper_macro {
+    compatible = "zmk,behavior-macro";
+    wait-ms = <1>;
+    tap-ms = <1>;
+    #binding-cells = <0>;
+    bindings
+    #if OPERATING_SYSTEM == 'W'
+      = <&macro_tap &kp RALT &kp U &kp N0 &kp N0 &kp C &kp N4 &kp ENTER>
+    #elif OPERATING_SYSTEM == 'L'
+      = <&macro_tap &kp LC(LS(U)) &kp C &kp N4 &kp ENTER>
+    #endif
+      ;
+  };
+
+  // ö = U+00F6
+  german_oe_lower: german_oe_lower_macro {
+    compatible = "zmk,behavior-macro";
+    wait-ms = <1>;
+    tap-ms = <1>;
+    #binding-cells = <0>;
+    bindings
+    #if OPERATING_SYSTEM == 'W'
+      = <&macro_tap &kp RALT &kp U &kp N0 &kp N0 &kp F &kp N6 &kp ENTER>
+    #elif OPERATING_SYSTEM == 'L'
+      = <&macro_tap &kp LC(LS(U)) &kp F &kp N6 &kp ENTER>
+    #endif
+      ;
+  };
+
+  // Ö = U+00D6
+  german_oe_upper: german_oe_upper_macro {
+    compatible = "zmk,behavior-macro";
+    wait-ms = <1>;
+    tap-ms = <1>;
+    #binding-cells = <0>;
+    bindings
+    #if OPERATING_SYSTEM == 'W'
+      = <&macro_tap &kp RALT &kp U &kp N0 &kp N0 &kp D &kp N6 &kp ENTER>
+    #elif OPERATING_SYSTEM == 'L'
+      = <&macro_tap &kp LC(LS(U)) &kp D &kp N6 &kp ENTER>
+    #endif
+      ;
+  };
+
+  // ü = U+00FC
+  german_ue_lower: german_ue_lower_macro {
+    compatible = "zmk,behavior-macro";
+    wait-ms = <1>;
+    tap-ms = <1>;
+    #binding-cells = <0>;
+    bindings
+    #if OPERATING_SYSTEM == 'W'
+      = <&macro_tap &kp RALT &kp U &kp N0 &kp N0 &kp F &kp C &kp ENTER>
+    #elif OPERATING_SYSTEM == 'L'
+      = <&macro_tap &kp LC(LS(U)) &kp F &kp C &kp ENTER>
+    #endif
+      ;
+  };
+
+  // Ü = U+00DC
+  german_ue_upper: german_ue_upper_macro {
+    compatible = "zmk,behavior-macro";
+    wait-ms = <1>;
+    tap-ms = <1>;
+    #binding-cells = <0>;
+    bindings
+    #if OPERATING_SYSTEM == 'W'
+      = <&macro_tap &kp RALT &kp U &kp N0 &kp N0 &kp D &kp C &kp ENTER>
+    #elif OPERATING_SYSTEM == 'L'
+      = <&macro_tap &kp LC(LS(U)) &kp D &kp C &kp ENTER>
+    #endif
+      ;
+  };
+
+  // ß = U+00DF
+  german_ss_lower: german_ss_lower_macro {
+    compatible = "zmk,behavior-macro";
+    wait-ms = <1>;
+    tap-ms = <1>;
+    #binding-cells = <0>;
+    bindings
+    #if OPERATING_SYSTEM == 'W'
+      = <&macro_tap &kp RALT &kp U &kp N0 &kp N0 &kp D &kp F &kp ENTER>
+    #elif OPERATING_SYSTEM == 'L'
+      = <&macro_tap &kp LC(LS(U)) &kp D &kp F &kp ENTER>
+    #endif
+      ;
+  };
+
+  // ẞ = U+1E9E (capital Eszett)
+  german_ss_upper: german_ss_upper_macro {
+    compatible = "zmk,behavior-macro";
+    wait-ms = <1>;
+    tap-ms = <1>;
+    #binding-cells = <0>;
+    bindings
+    #if OPERATING_SYSTEM == 'W'
+      = <&macro_tap &kp RALT &kp U &kp N1 &kp E &kp N9 &kp E &kp ENTER>
+    #elif OPERATING_SYSTEM == 'L'
+      = <&macro_tap &kp LC(LS(U)) &kp N1 &kp E &kp N9 &kp E &kp ENTER>
+    #endif
+      ;
+  };
+
+}; // end macros
+}; // end root node
