@@ -410,140 +410,111 @@ macros {
   //
   // To switch OS, change OPERATING_SYSTEM at the top of this file.
 
-  // ä = U+00E4
+  // === German umlaut macros using Compose key sequences ===
+  // Works on both Linux (XCompose) and Windows (WinCompose)
+  // Requires RALT set as compose key:
+  //   Linux:   setxkbmap -option compose:ralt
+  //   Windows: install WinCompose (uses RALT by default)
+
+  // ä: Compose + " + a
   german_ae_lower: german_ae_lower_macro {
     compatible = "zmk,behavior-macro";
     wait-ms = <30>;
     tap-ms = <30>;
     #binding-cells = <0>;
     bindings
-    #if OPERATING_SYSTEM == 'W'
-      = <&macro_tap &kp RALT>
-      , <&macro_wait_time 50>
-      , <&macro_tap &kp U &kp N0 &kp N0 &kp E &kp N4 &kp ENTER>
-    #elif OPERATING_SYSTEM == 'L'
-      = <&macro_tap &kp LC(LS(U))>
-      , <&macro_wait_time 50>
-      , <&macro_tap &kp N0 &kp N0 &kp E &kp N4 &kp ENTER>
-    #endif
+      = <&macro_release &kp LSFT &kp RSFT>
+      , <&macro_tap &kp RALT>
+      , <&macro_wait_time 30>
+      , <&macro_tap &kp LS(SQT) &kp A>
       ;
   };
 
-  // Ä = U+00C4
+  // Ä: Compose + " + A
   german_ae_upper: german_ae_upper_macro {
     compatible = "zmk,behavior-macro";
     wait-ms = <30>;
     tap-ms = <30>;
     #binding-cells = <0>;
     bindings
-    #if OPERATING_SYSTEM == 'W'
-      = <&macro_tap &kp RALT>
-      , <&macro_wait_time 50>
-      , <&macro_tap &kp U &kp N0 &kp N0 &kp C &kp N4 &kp ENTER>
-    #elif OPERATING_SYSTEM == 'L'
-      = <&macro_tap &kp LC(LS(U))>
-      , <&macro_wait_time 50>
-      , <&macro_tap &kp N0 &kp N0 &kp C &kp N4 &kp ENTER>
-    #endif
+      = <&macro_release &kp LSFT &kp RSFT>
+      , <&macro_tap &kp RALT>
+      , <&macro_wait_time 30>
+      , <&macro_tap &kp LS(SQT) &kp LS(A)>
       ;
   };
 
-  // ö = U+00F6
+  // ö: Compose + " + o
   german_oe_lower: german_oe_lower_macro {
     compatible = "zmk,behavior-macro";
     wait-ms = <30>;
     tap-ms = <30>;
     #binding-cells = <0>;
     bindings
-    #if OPERATING_SYSTEM == 'W'
-      = <&macro_tap &kp RALT>
-      , <&macro_wait_time 50>
-      , <&macro_tap &kp U &kp N0 &kp N0 &kp F &kp N6 &kp ENTER>
-    #elif OPERATING_SYSTEM == 'L'
-      = <&macro_tap &kp LC(LS(U))>
-      , <&macro_wait_time 50>
-      , <&macro_tap &kp N0 &kp N0 &kp F &kp N6 &kp ENTER>
-    #endif
+      = <&macro_release &kp LSFT &kp RSFT>
+      , <&macro_tap &kp RALT>
+      , <&macro_wait_time 30>
+      , <&macro_tap &kp LS(SQT) &kp O>
       ;
   };
 
-  // Ö = U+00D6
+  // Ö: Compose + " + O
   german_oe_upper: german_oe_upper_macro {
     compatible = "zmk,behavior-macro";
     wait-ms = <30>;
     tap-ms = <30>;
     #binding-cells = <0>;
     bindings
-    #if OPERATING_SYSTEM == 'W'
-      = <&macro_tap &kp RALT>
-      , <&macro_wait_time 50>
-      , <&macro_tap &kp U &kp N0 &kp N0 &kp D &kp N6 &kp ENTER>
-    #elif OPERATING_SYSTEM == 'L'
-      = <&macro_tap &kp LC(LS(U))>
-      , <&macro_wait_time 50>
-      , <&macro_tap &kp N0 &kp N0 &kp D &kp N6 &kp ENTER>
-    #endif
+      = <&macro_release &kp LSFT &kp RSFT>
+      , <&macro_tap &kp RALT>
+      , <&macro_wait_time 30>
+      , <&macro_tap &kp LS(SQT) &kp LS(O)>
       ;
   };
 
-  // ü = U+00FC
+  // ü: Compose + " + u
   german_ue_lower: german_ue_lower_macro {
     compatible = "zmk,behavior-macro";
     wait-ms = <30>;
     tap-ms = <30>;
     #binding-cells = <0>;
     bindings
-    #if OPERATING_SYSTEM == 'W'
-      = <&macro_tap &kp RALT>
-      , <&macro_wait_time 50>
-      , <&macro_tap &kp U &kp N0 &kp N0 &kp F &kp C &kp ENTER>
-    #elif OPERATING_SYSTEM == 'L'
-      = <&macro_tap &kp LC(LS(U))>
-      , <&macro_wait_time 50>
-      , <&macro_tap &kp N0 &kp N0 &kp F &kp C &kp ENTER>
-    #endif
+      = <&macro_release &kp LSFT &kp RSFT>
+      , <&macro_tap &kp RALT>
+      , <&macro_wait_time 30>
+      , <&macro_tap &kp LS(SQT) &kp U>
       ;
   };
 
-  // Ü = U+00DC
+  // Ü: Compose + " + U
   german_ue_upper: german_ue_upper_macro {
     compatible = "zmk,behavior-macro";
     wait-ms = <30>;
     tap-ms = <30>;
     #binding-cells = <0>;
     bindings
-    #if OPERATING_SYSTEM == 'W'
-      = <&macro_tap &kp RALT>
-      , <&macro_wait_time 50>
-      , <&macro_tap &kp U &kp N0 &kp N0 &kp D &kp C &kp ENTER>
-    #elif OPERATING_SYSTEM == 'L'
-      = <&macro_tap &kp LC(LS(U))>
-      , <&macro_wait_time 50>
-      , <&macro_tap &kp N0 &kp N0 &kp D &kp C &kp ENTER>
-    #endif
+      = <&macro_release &kp LSFT &kp RSFT>
+      , <&macro_tap &kp RALT>
+      , <&macro_wait_time 30>
+      , <&macro_tap &kp LS(SQT) &kp LS(U)>
       ;
   };
 
-  // ß = U+00DF
+  // ß: Compose + s + s
   german_ss_lower: german_ss_lower_macro {
     compatible = "zmk,behavior-macro";
     wait-ms = <30>;
     tap-ms = <30>;
     #binding-cells = <0>;
     bindings
-    #if OPERATING_SYSTEM == 'W'
-      = <&macro_tap &kp RALT>
-      , <&macro_wait_time 50>
-      , <&macro_tap &kp U &kp N0 &kp N0 &kp D &kp F &kp ENTER>
-    #elif OPERATING_SYSTEM == 'L'
-      = <&macro_tap &kp LC(LS(U))>
-      , <&macro_wait_time 50>
-      , <&macro_tap &kp N0 &kp N0 &kp D &kp F &kp ENTER>
-    #endif
+      = <&macro_release &kp LSFT &kp RSFT>
+      , <&macro_tap &kp RALT>
+      , <&macro_wait_time 30>
+      , <&macro_tap &kp S &kp S>
       ;
   };
 
-  // ẞ = U+1E9E (capital Eszett)
+  // ẞ (capital Eszett): Unicode fallback U+1E9E — no standard compose sequence
   german_ss_upper: german_ss_upper_macro {
     compatible = "zmk,behavior-macro";
     wait-ms = <30>;
@@ -551,12 +522,14 @@ macros {
     #binding-cells = <0>;
     bindings
     #if OPERATING_SYSTEM == 'W'
-      = <&macro_tap &kp RALT>
-      , <&macro_wait_time 50>
+      = <&macro_release &kp LSFT &kp RSFT>
+      , <&macro_tap &kp RALT>
+      , <&macro_wait_time 30>
       , <&macro_tap &kp U &kp N1 &kp E &kp N9 &kp E &kp ENTER>
     #elif OPERATING_SYSTEM == 'L'
-      = <&macro_tap &kp LC(LS(U))>
-      , <&macro_wait_time 50>
+      = <&macro_release &kp LSFT &kp RSFT>
+      , <&macro_tap &kp LC(LS(U))>
+      , <&macro_wait_time 30>
       , <&macro_tap &kp N1 &kp E &kp N9 &kp E &kp ENTER>
     #endif
       ;
