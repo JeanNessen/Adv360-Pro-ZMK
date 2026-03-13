@@ -13,7 +13,7 @@
 
 // Operating system: 'W' for Windows (WinCompose), 'L' for Linux
 #ifndef OPERATING_SYSTEM
-#define OPERATING_SYSTEM 'W'
+#define OPERATING_SYSTEM 'L'
 #endif
 
 // OS-dependent shortcuts
@@ -413,14 +413,18 @@ macros {
   // ä = U+00E4
   german_ae_lower: german_ae_lower_macro {
     compatible = "zmk,behavior-macro";
-    wait-ms = <1>;
-    tap-ms = <1>;
+    wait-ms = <30>;
+    tap-ms = <30>;
     #binding-cells = <0>;
     bindings
     #if OPERATING_SYSTEM == 'W'
-      = <&macro_tap &kp RALT &kp U &kp N0 &kp N0 &kp E &kp N4 &kp ENTER>
+      = <&macro_tap &kp RALT>
+      , <&macro_wait_time 50>
+      , <&macro_tap &kp U &kp N0 &kp N0 &kp E &kp N4 &kp ENTER>
     #elif OPERATING_SYSTEM == 'L'
-      = <&macro_tap &kp LC(LS(U)) &kp E &kp N4 &kp ENTER>
+      = <&macro_tap &kp LC(LS(U))>
+      , <&macro_wait_time 50>
+      , <&macro_tap &kp N0 &kp N0 &kp E &kp N4 &kp ENTER>
     #endif
       ;
   };
@@ -428,14 +432,18 @@ macros {
   // Ä = U+00C4
   german_ae_upper: german_ae_upper_macro {
     compatible = "zmk,behavior-macro";
-    wait-ms = <1>;
-    tap-ms = <1>;
+    wait-ms = <30>;
+    tap-ms = <30>;
     #binding-cells = <0>;
     bindings
     #if OPERATING_SYSTEM == 'W'
-      = <&macro_tap &kp RALT &kp U &kp N0 &kp N0 &kp C &kp N4 &kp ENTER>
+      = <&macro_tap &kp RALT>
+      , <&macro_wait_time 50>
+      , <&macro_tap &kp U &kp N0 &kp N0 &kp C &kp N4 &kp ENTER>
     #elif OPERATING_SYSTEM == 'L'
-      = <&macro_tap &kp LC(LS(U)) &kp C &kp N4 &kp ENTER>
+      = <&macro_tap &kp LC(LS(U))>
+      , <&macro_wait_time 50>
+      , <&macro_tap &kp N0 &kp N0 &kp C &kp N4 &kp ENTER>
     #endif
       ;
   };
@@ -443,14 +451,18 @@ macros {
   // ö = U+00F6
   german_oe_lower: german_oe_lower_macro {
     compatible = "zmk,behavior-macro";
-    wait-ms = <1>;
-    tap-ms = <1>;
+    wait-ms = <30>;
+    tap-ms = <30>;
     #binding-cells = <0>;
     bindings
     #if OPERATING_SYSTEM == 'W'
-      = <&macro_tap &kp RALT &kp U &kp N0 &kp N0 &kp F &kp N6 &kp ENTER>
+      = <&macro_tap &kp RALT>
+      , <&macro_wait_time 50>
+      , <&macro_tap &kp U &kp N0 &kp N0 &kp F &kp N6 &kp ENTER>
     #elif OPERATING_SYSTEM == 'L'
-      = <&macro_tap &kp LC(LS(U)) &kp F &kp N6 &kp ENTER>
+      = <&macro_tap &kp LC(LS(U))>
+      , <&macro_wait_time 50>
+      , <&macro_tap &kp N0 &kp N0 &kp F &kp N6 &kp ENTER>
     #endif
       ;
   };
@@ -458,14 +470,18 @@ macros {
   // Ö = U+00D6
   german_oe_upper: german_oe_upper_macro {
     compatible = "zmk,behavior-macro";
-    wait-ms = <1>;
-    tap-ms = <1>;
+    wait-ms = <30>;
+    tap-ms = <30>;
     #binding-cells = <0>;
     bindings
     #if OPERATING_SYSTEM == 'W'
-      = <&macro_tap &kp RALT &kp U &kp N0 &kp N0 &kp D &kp N6 &kp ENTER>
+      = <&macro_tap &kp RALT>
+      , <&macro_wait_time 50>
+      , <&macro_tap &kp U &kp N0 &kp N0 &kp D &kp N6 &kp ENTER>
     #elif OPERATING_SYSTEM == 'L'
-      = <&macro_tap &kp LC(LS(U)) &kp D &kp N6 &kp ENTER>
+      = <&macro_tap &kp LC(LS(U))>
+      , <&macro_wait_time 50>
+      , <&macro_tap &kp N0 &kp N0 &kp D &kp N6 &kp ENTER>
     #endif
       ;
   };
@@ -473,14 +489,18 @@ macros {
   // ü = U+00FC
   german_ue_lower: german_ue_lower_macro {
     compatible = "zmk,behavior-macro";
-    wait-ms = <1>;
-    tap-ms = <1>;
+    wait-ms = <30>;
+    tap-ms = <30>;
     #binding-cells = <0>;
     bindings
     #if OPERATING_SYSTEM == 'W'
-      = <&macro_tap &kp RALT &kp U &kp N0 &kp N0 &kp F &kp C &kp ENTER>
+      = <&macro_tap &kp RALT>
+      , <&macro_wait_time 50>
+      , <&macro_tap &kp U &kp N0 &kp N0 &kp F &kp C &kp ENTER>
     #elif OPERATING_SYSTEM == 'L'
-      = <&macro_tap &kp LC(LS(U)) &kp F &kp C &kp ENTER>
+      = <&macro_tap &kp LC(LS(U))>
+      , <&macro_wait_time 50>
+      , <&macro_tap &kp N0 &kp N0 &kp F &kp C &kp ENTER>
     #endif
       ;
   };
@@ -488,14 +508,18 @@ macros {
   // Ü = U+00DC
   german_ue_upper: german_ue_upper_macro {
     compatible = "zmk,behavior-macro";
-    wait-ms = <1>;
-    tap-ms = <1>;
+    wait-ms = <30>;
+    tap-ms = <30>;
     #binding-cells = <0>;
     bindings
     #if OPERATING_SYSTEM == 'W'
-      = <&macro_tap &kp RALT &kp U &kp N0 &kp N0 &kp D &kp C &kp ENTER>
+      = <&macro_tap &kp RALT>
+      , <&macro_wait_time 50>
+      , <&macro_tap &kp U &kp N0 &kp N0 &kp D &kp C &kp ENTER>
     #elif OPERATING_SYSTEM == 'L'
-      = <&macro_tap &kp LC(LS(U)) &kp D &kp C &kp ENTER>
+      = <&macro_tap &kp LC(LS(U))>
+      , <&macro_wait_time 50>
+      , <&macro_tap &kp N0 &kp N0 &kp D &kp C &kp ENTER>
     #endif
       ;
   };
@@ -503,14 +527,18 @@ macros {
   // ß = U+00DF
   german_ss_lower: german_ss_lower_macro {
     compatible = "zmk,behavior-macro";
-    wait-ms = <1>;
-    tap-ms = <1>;
+    wait-ms = <30>;
+    tap-ms = <30>;
     #binding-cells = <0>;
     bindings
     #if OPERATING_SYSTEM == 'W'
-      = <&macro_tap &kp RALT &kp U &kp N0 &kp N0 &kp D &kp F &kp ENTER>
+      = <&macro_tap &kp RALT>
+      , <&macro_wait_time 50>
+      , <&macro_tap &kp U &kp N0 &kp N0 &kp D &kp F &kp ENTER>
     #elif OPERATING_SYSTEM == 'L'
-      = <&macro_tap &kp LC(LS(U)) &kp D &kp F &kp ENTER>
+      = <&macro_tap &kp LC(LS(U))>
+      , <&macro_wait_time 50>
+      , <&macro_tap &kp N0 &kp N0 &kp D &kp F &kp ENTER>
     #endif
       ;
   };
@@ -518,14 +546,18 @@ macros {
   // ẞ = U+1E9E (capital Eszett)
   german_ss_upper: german_ss_upper_macro {
     compatible = "zmk,behavior-macro";
-    wait-ms = <1>;
-    tap-ms = <1>;
+    wait-ms = <30>;
+    tap-ms = <30>;
     #binding-cells = <0>;
     bindings
     #if OPERATING_SYSTEM == 'W'
-      = <&macro_tap &kp RALT &kp U &kp N1 &kp E &kp N9 &kp E &kp ENTER>
+      = <&macro_tap &kp RALT>
+      , <&macro_wait_time 50>
+      , <&macro_tap &kp U &kp N1 &kp E &kp N9 &kp E &kp ENTER>
     #elif OPERATING_SYSTEM == 'L'
-      = <&macro_tap &kp LC(LS(U)) &kp N1 &kp E &kp N9 &kp E &kp ENTER>
+      = <&macro_tap &kp LC(LS(U))>
+      , <&macro_wait_time 50>
+      , <&macro_tap &kp N1 &kp E &kp N9 &kp E &kp ENTER>
     #endif
       ;
   };
